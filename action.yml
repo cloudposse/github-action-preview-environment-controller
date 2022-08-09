@@ -1,0 +1,70 @@
+name: 'Preview environment controller'
+description: 'Manage deploy/undeploy for preview environments depends of PR labels'
+inputs:
+  env-label:
+    description: "YAML formatted {environment}: {label} map "
+    required: true
+    default: |
+      preview: deploy
+  labels:
+    description: Existing PR labels
+    required: true
+    default: "[]"
+  open:
+    required: true
+    description: "Is PR open?"
+    default: "true"
+outputs:
+  labels_env:
+    description: "JSON formatted {label}: {environment} map"
+    value: ${{ steps.yaml2json.outputs.data }}
+  deploy_envs:
+    description: "Environments that need to be deployed"
+    value: ${{ steps.deploy_envs.outputs.output }}
+  destroy_envs:
+    description: "Environments that need to be destroyed"
+    value: ${{ steps.destroy_envs.outputs.output }}
+runs:
+  using: "composite"
+  steps:
+    - uses: 1arp/create-a-file-action@0.2
+      with:
+        path: './'
+        file: 'labels_env.yaml'
+        content: ${{ inputs.env-label }}
+
+    - uses: fabasoad/yaml-json-xml-converter-action@main
+      id: yaml2json
+      with:
+        path: 'labels_env.yaml'
+        from: 'yaml'
+        to: 'json'
+
+    - id: pattern
+      shell: bash
+      run: |
+        if [ "${{ inputs.open }}" == "true" ]
+        then
+          echo "::set-output name=deploy::with_entries(select(.value | IN({0}[]))) | keys"
+          echo "::set-output name=destroy::with_entries(select(.value | IN({0}[]) | not )) | keys"
+        else
+          echo "::set-output name=deploy::[]"
+          echo "::set-output name=destroy::with_entries(select(.value | IN({0}[]))) | keys"
+        fi
+
+    - uses: edwardgeorge/jq-action@main
+      id: deploy_envs
+      with:
+        compact: true
+        input: ${{ steps.yaml2json.outputs.data }}
+        script: ${{ format(steps.pattern.outputs.deploy, inputs.labels) }}
+
+    - uses: edwardgeorge/jq-action@main
+      id: destroy_envs
+      with:
+        compact: true
+        input: ${{ steps.yaml2json.outputs.data }}
+        script: ${{ format(steps.pattern.outputs.destroy, inputs.labels) }}
+
+
+
