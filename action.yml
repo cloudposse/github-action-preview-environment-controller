@@ -1,5 +1,9 @@
 name: 'Preview environment controller'
 description: 'Manage deploy/undeploy for preview environments depends of PR labels'
+author: hello@cloudposse.com
+branding:
+  icon: 'layers'
+  color: 'white'
 inputs:
   env-label:
     description: "YAML formatted {environment}: {label} map "
