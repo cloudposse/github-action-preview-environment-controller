@@ -1,16 +1,5 @@
 name: Reusable - Bleeding edge
-on:
-  workflow_call:
-    inputs:
-      organization:
-        required: true
-        type: string
-      repository:
-        required: true
-        type: string
-    secrets:
-      github-private-actions-pat:
-        required: true
+on: [ workflow_call ]
 
 permissions:
   contents: write
@@ -18,7 +7,6 @@ permissions:
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
-
 
 jobs:
   lint:
@@ -43,8 +31,8 @@ jobs:
       - name: Create/Update Draft release
         uses: release-drafter/release-drafter@v5
         with:
-          publish: true
+          publish: false
           prerelease: false
           config-name: configs/draft-release.yml
         env:
-          GITHUB_TOKEN: ${{ secrets.github-private-actions-pat }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
