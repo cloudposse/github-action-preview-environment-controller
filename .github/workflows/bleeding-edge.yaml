@@ -13,4 +13,4 @@ jobs:
       organization: "${{ github.event.repository.owner.login }}"
       repository: "${{ github.event.repository.name }}"
     secrets:
-      github-private-actions-pat: "${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}"
+      github-private-actions-pat: "${{ secrets.GHA_PUBLISH_PAT }}"
