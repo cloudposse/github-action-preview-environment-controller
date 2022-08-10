@@ -49,6 +49,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: tgymnich/publish-github-action@main
-        with:
-          github_token: ${{ secrets.github-private-actions-pat }}
+      - uses: technote-space/release-github-actions@v6
