@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: YAML file validation
-        uses: mpoc/nexus-validate-using-remote-schema-action@v1
+        uses: mpoc/nexus-validate-using-remote-schema-action@main
         with:
           api-endpoint: https://json.schemastore.org/github-action.json
           yaml-file: action.yml
