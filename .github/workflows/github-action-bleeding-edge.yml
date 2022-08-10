@@ -33,6 +33,18 @@ jobs:
           api-endpoint: https://json.schemastore.org/github-action.json
           yaml-file: action.yml
 
+      - name: Validate JSON
+        uses: walbo/validate-json@v1.1.0
+        with:
+          files: action.yml
+          schema: https://json.schemastore.org/github-action.json
+          schema-version: draft-04
+          print-valid-files: false
+          fail-on-missing-schema: false
+          strict: true
+          allow-matching-properties: false
+          allow-union-types: true
+
   semver:
     runs-on: ubuntu-latest
     needs: [ lint ]
