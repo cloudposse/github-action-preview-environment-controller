@@ -48,5 +48,3 @@ jobs:
           config-name: configs/draft-release.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: technote-space/release-github-actions@v6
