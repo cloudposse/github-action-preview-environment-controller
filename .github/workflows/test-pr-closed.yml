@@ -1,4 +1,4 @@
-name: Test PR opened
+name: Test PR closed
 on:
   workflow_dispatch: {}
   pull_request:
