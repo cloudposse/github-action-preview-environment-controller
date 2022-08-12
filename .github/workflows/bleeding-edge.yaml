@@ -12,6 +12,6 @@ jobs:
     with:
       organization: "${{ github.event.repository.owner.login }}"
       repository: "${{ github.event.repository.name }}"
-      ref: ""${{ github.ref }}"
+      ref: "${{ github.ref }}"
     secrets:
       github-private-actions-pat: "${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}"
