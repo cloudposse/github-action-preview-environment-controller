@@ -30,8 +30,8 @@ jobs:
             qa2: deploy/qa2
             qa3: deploy/qa3
             qa4: deploy/qa4
-          labels: '[ "deploy", "deploy/qa2" ]'
-          open: true
+          labels: '["deploy","deploy/qa2"]'
+          open: 'true'
 
       - uses: nick-fields/assert-action@v1
         with:
