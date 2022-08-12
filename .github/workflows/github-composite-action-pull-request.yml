@@ -11,6 +11,10 @@ on:
       ref:
         required: true
         type: string
+      tests-prefix:
+        required: true
+        type: string
+        default: 'test-*'
     secrets:
       github-private-actions-pat:
         required: true
@@ -20,6 +24,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Tests
+        id: tests
+        shell: bash
+        run: |
+          TEST_FILES=$(find ./.github/workflows -type f -name "${{ inputs.tests-prefix }}" -exec basename {} \; | jq -MRc -s '. | split("\n") | map(select(. != ""))')
+          echo "::set-output name=list::${TEST_FILES}"
+
+    outputs:
+      tests: ${{ steps.tests.outputs.list }}
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -34,14 +54,18 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: [ lint ]
+    if: ${{ needs.context.outputs.tests != '[]'  }}
+    strategy:
+      matrix:
+        env: ${{ fromJson(needs.context.outputs.tests) }}
+    needs: [ lint, context ]
     steps:
       - uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
           owner: ${{ inputs.organization }}
           repo: ${{ inputs.repository }}
           github_token: ${{ secrets.github-private-actions-pat }}
-          workflow_file_name: test-default.yml
+          workflow_file_name: ${{ matrix.env }}
           ref: ${{ inputs.ref }}
           wait_interval: 10
           client_payload: '{}'
