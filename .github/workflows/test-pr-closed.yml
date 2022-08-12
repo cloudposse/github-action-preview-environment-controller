@@ -1,8 +1,5 @@
 name: Test PR opened
-on:
-  workflow_dispatch: {}
-  repository_dispatch:
-    types: [ run-tests ]
+on: [workflow_dispatch]
 
 permissions:
   contents: write
