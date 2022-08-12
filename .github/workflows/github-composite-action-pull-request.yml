@@ -30,4 +30,4 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.github-private-actions-pat }}
-          event-type: my-event
+          event-type: run-tests
