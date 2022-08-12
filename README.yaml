@@ -1,0 +1,66 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: github-action-preview-environment-controller
+
+# Tags of this project
+tags:
+  - github-action
+  - continous-delivery
+  - preview-environments
+
+# Categories of this project
+categories:
+  - github-action/cd
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/github-action-preview-environment-controller
+
+# Badges to display
+badges:
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/github-action-preview-environment-controller.svg"
+    url: "https://github.com/cloudposse/github-action-preview-environment-controller/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related: []
+
+# Short description of this project
+description: |-
+
+introduction: |-
+
+references:
+  - name: "github-actions-workflows"
+    description: "Reusable workflows for different types of projects"
+    url: "https://github.com/cloudposse/github-actions-workflows"
+  - name: "example-github-action-release-workflow"
+    description: "Example application with complicated release workflow"
+    url: "https://github.com/cloudposse/example-github-action-release-workflow"
+
+# How to use this project
+usage: |-
+  Usage goes here
+
+examples: |-
+  Examples goes here
+include:
+  - "docs/targets.md"
+  - "docs/github-action.md"
+
+# Contributors to this project
+contributors:
+  - name: "Igor Rodionov"
+    github: "goruha"
