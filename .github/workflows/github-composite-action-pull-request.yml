@@ -1,5 +1,9 @@
 name: Reusable - Pull Request
-on: [ workflow_call ]
+on:
+  workflow_call:
+    secrets:
+      github-private-actions-pat:
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,3 +21,13 @@ jobs:
         with:
           api-endpoint: https://json.schemastore.org/github-action.json
           yaml-file: action.yml
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [ lint ]
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.github-private-actions-pat }}
+          event-type: my-event
