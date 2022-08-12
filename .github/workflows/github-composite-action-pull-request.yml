@@ -29,8 +29,6 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v3
-#        with:
-#          ref: main
 
       - name: Workflows
         id: workflows
@@ -38,11 +36,6 @@ jobs:
         run: |
           TEST_FILES=$(find ./.github/workflows -type f -name "${{ inputs.tests-prefix }}" -exec basename {} \; | jq -MRc -s '. | split("\n") | map(select(. != ""))')
           echo "::set-output name=list::${TEST_FILES}"
-
-#      - name: Checkout
-#        uses: actions/checkout@v3
-
-
 
     outputs:
       tests: ${{ steps.workflows.outputs.list }}
