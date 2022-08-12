@@ -35,12 +35,12 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: '["preview", "qa2"]'
+          expected: '["preview","qa2"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: '["qa1", "qa3", "qa4"]'
+          expected: '["qa1","qa3","qa4"]'
           actual: ${{ steps.current.outputs.destroy_envs }}
 
   teardown:
