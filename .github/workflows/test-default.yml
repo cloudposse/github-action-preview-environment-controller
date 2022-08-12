@@ -34,8 +34,10 @@ jobs:
           expected: '["preview"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
-      - name: Test
-        run: echo "Do Test"
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: '[]'
+          actual: ${{ steps.current.outputs.destroy_envs }}
 
   teardown:
     runs-on: ubuntu-latest
