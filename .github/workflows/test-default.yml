@@ -1,6 +1,6 @@
 name: Test default behaviour
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
   repository_dispatch:
     types: [ run-tests ]
 
