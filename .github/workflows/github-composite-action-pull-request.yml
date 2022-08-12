@@ -30,15 +30,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Tests
-        id: tests
+      - name: Workflows
+        id: workflows
         shell: bash
         run: |
           TEST_FILES=$(find ./.github/workflows -type f -name "${{ inputs.tests-prefix }}" -exec basename {} \; | jq -MRc -s '. | split("\n") | map(select(. != ""))')
           echo "::set-output name=list::${TEST_FILES}"
 
     outputs:
-      tests: ${{ steps.tests.outputs.list }}
+      tests: ${{ steps.workflows.outputs.list }}
 
   lint:
     runs-on: ubuntu-latest
