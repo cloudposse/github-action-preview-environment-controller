@@ -56,6 +56,7 @@ usage: |-
 
 examples: |-
   Examples goes here
+
 include:
   - "docs/targets.md"
   - "docs/github-action.md"
