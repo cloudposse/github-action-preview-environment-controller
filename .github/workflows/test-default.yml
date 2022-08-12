@@ -19,7 +19,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Test
-        run: echo "Do Test"
+        run: exit 1
 
   teardown:
     runs-on: ubuntu-latest

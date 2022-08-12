@@ -41,7 +41,6 @@ jobs:
           owner: ${{ inputs.organization }}
           repo: ${{ inputs.repository }}
           github_token: ${{ secrets.github-private-actions-pat }}
-#          github_user: github-user
           workflow_file_name: test-default.yml
           ref: ${{ inputs.ref }}
           wait_interval: 10
@@ -49,8 +48,3 @@ jobs:
           propagate_failure: true
           trigger_workflow: true
           wait_workflow: true
-#    - uses: aurelien-baudet/workflow-dispatch@v2
-#      with:
-#        workflow: Test default behaviour
-#        token: ${{ secrets.github-private-actions-pat }}
-#        wait-for-completion: true
