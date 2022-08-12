@@ -62,8 +62,18 @@ jobs:
         env: ${{ fromJson(needs.context.outputs.tests) }}
     needs: [ lint, context ]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Workflow exists
+        id: workflow
+        shell: bash
+        run: |
+          ls .github/workflow/${{ matrix.env }}
+          echo "::set-output name=missed::${?}"
+
       - uses: convictional/trigger-workflow-and-wait@v1.6.1
-        if: ${{ success() }}
+        if: ${{ steps.workflow.outputs.missed == 0 }}
         with:
           owner: ${{ inputs.organization }}
           repo: ${{ inputs.repository }}
