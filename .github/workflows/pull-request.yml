@@ -6,6 +6,6 @@ on:
 
 jobs:
   default:
-    uses: cloudposse/github-action-preview-environment-controller/.github/workflows/github-composite-action-pull-request.yml@added-tests
+    uses: cloudposse/github-action-preview-environment-controller/.github/workflows/github-composite-action-pull-request.yml@added-tests-workflow
     secrets:
       github-private-actions-pat: "${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}"
