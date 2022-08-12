@@ -31,7 +31,7 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: preview
+          expected: '["preview"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
       - name: Test
