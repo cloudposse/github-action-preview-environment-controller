@@ -29,6 +29,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Workflows
         id: workflows
@@ -60,18 +62,6 @@ jobs:
         env: ${{ fromJson(needs.context.outputs.tests) }}
     needs: [ lint, context ]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: main
-
-      - name: YAML file validation
-        id: validate
-        uses: mpoc/nexus-validate-using-remote-schema-action@main
-        with:
-          api-endpoint: https://json.schemastore.org/github-workflow.json
-          yaml-file: .github/workflows/${{ matrix.env }}
-
       - uses: convictional/trigger-workflow-and-wait@v1.6.1
         if: ${{ success() }}
         with:
