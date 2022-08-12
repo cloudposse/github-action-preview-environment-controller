@@ -28,6 +28,6 @@ jobs:
     steps:
     - uses: aurelien-baudet/workflow-dispatch@v2
       with:
-        workflow: test-default
+        workflow: Test default behaviour
         token: ${{ secrets.github-private-actions-pat }}
         wait-for-completion: true
