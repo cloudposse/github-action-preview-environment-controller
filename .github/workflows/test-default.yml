@@ -26,8 +26,13 @@ jobs:
         with:
           env-label: |
               preview: deploy
-          labels: [ "deploy" ]
+          labels: '[ "deploy" ]'
           open: true
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: preview
+          actual: ${{ steps.current.outputs.deploy_envs }}
 
       - name: Test
         run: echo "Do Test"
