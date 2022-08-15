@@ -52,7 +52,7 @@ jobs:
           fi
 
       - name: Update action reame
-        uses: npalm/action-docs-action
+        uses: npalm/action-docs-action@v1.1.0
         
 
       - name: Create Pull Request
