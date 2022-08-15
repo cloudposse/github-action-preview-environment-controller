@@ -39,6 +39,7 @@ related: []
 
 # Short description of this project
 description: |-
+  <!-- action-docs-description -->
 
 introduction: |-
 
@@ -53,13 +54,18 @@ references:
 # How to use this project
 usage: |-
   Usage goes here
+  <!-- action-docs-inputs -->
+  
+  <!-- action-docs-outputs -->
+  
+  <!-- action-docs-runs -->
 
 examples: |-
   Examples goes here
 
 include:
   - "docs/targets.md"
-  - "docs/github-action.md"
+#  - "docs/github-action.md"
 
 # Contributors to this project
 contributors:
