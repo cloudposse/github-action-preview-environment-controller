@@ -30,7 +30,13 @@
 
 -->
 
+<!-- action-docs-description -->
+## Description
 
+Manage deploy/undeploy for preview environments depends of PR labels
+
+
+<!-- action-docs-description -->
 
 ---
 
@@ -71,6 +77,40 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 Usage goes here
+<!-- action-docs-inputs -->
+## Inputs
+
+| parameter | description | required | default |
+| - | - | - | - |
+| env-label | YAML formatted {environment}: {label} map  | `true` | preview: deploy
+ |
+| labels | Existing PR labels | `true` | [] |
+| open | Is PR open? | `true` | true |
+
+
+
+<!-- action-docs-inputs -->
+
+<!-- action-docs-outputs -->
+## Outputs
+
+| parameter | description |
+| - | - |
+| labels_env | JSON formatted {label}: {environment} map |
+| deploy_envs | Environments that need to be deployed |
+| destroy_envs | Environments that need to be destroyed |
+
+
+
+<!-- action-docs-outputs -->
+
+<!-- action-docs-runs -->
+## Runs
+
+This action is an `composite` action.
+
+
+<!-- action-docs-runs -->
 
 
 
