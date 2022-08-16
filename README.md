@@ -90,7 +90,7 @@ what environments should be deployed and what cleaned up.
       runs-on: ubuntu-latest
       steps:
         - name: Preview deployments controller
-          uses: cloudposse/github-action-preview-environment-controller@v0.7.0
+          uses: cloudposse/github-action-preview-environment-controller@main
           id: controller
           with:
             labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}
@@ -159,18 +159,6 @@ what environments should be deployed and what cleaned up.
 | deploy\_envs | Environments that need to be deployed |
 | destroy\_envs | Environments that need to be destroyed |
 | labels\_env | JSON formatted {label}: {environment} map |
-<!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
 <!-- markdownlint-restore -->
 
 
