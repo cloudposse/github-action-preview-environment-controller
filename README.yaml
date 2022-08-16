@@ -73,7 +73,7 @@ usage: |-
         runs-on: ubuntu-latest
         steps:
           - name: Preview deployments controller
-            uses: cloudposse/github-action-preview-environment-controller@v0.7.0
+            uses: cloudposse/github-action-preview-environment-controller@main
             id: controller
             with:
               labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}
@@ -123,7 +123,6 @@ usage: |-
 
 include:
   - "docs/github-action.md"
-  - "docs/targets.md"
 
 # Contributors to this project
 contributors:
