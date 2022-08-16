@@ -51,10 +51,6 @@ jobs:
             echo Ignoring whitespace-only changes in README
           fi
 
-      - name: Update action reame
-        uses: npalm/action-docs-action@v1.1.0
-        
-
       - name: Create Pull Request
         # This action will not create or change a pull request if there are no changes to make.
         # If a PR of the auto-update/readme branch is open, this action will just update it, not create a new PR.

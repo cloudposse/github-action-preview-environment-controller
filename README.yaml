@@ -65,7 +65,7 @@ examples: |-
 
 include:
   - "docs/targets.md"
-#  - "docs/github-action.md"
+  - "docs/github-action.md"
 
 # Contributors to this project
 contributors:
