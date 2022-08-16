@@ -38,10 +38,15 @@ badges:
 related: []
 
 # Short description of this project
-description: |-
-  <!-- action-docs-description -->
+description: Action to manage to deploy and purge preview environments depends on PR labels
 
 introduction: |-
+  Testing Pull Request changes usually lead to having it deployed on a preview environment.
+  The environment can be ephemeral or pre-provisioned. In the last case, there is a countable number of preview environments.
+  This GitHub Action follows a pattern when the developer set PR label to specify a preview environment to deploy.
+  `github-action-preview-environment-controller` allow to define map of `environment => label`.
+  Depending on current PR labels the action outputs a list of deploy and destroy environments.
+  So it performs a `controller` role and does not limit deployment methods or tools.
 
 references:
   - name: "github-actions-workflows"
@@ -53,19 +58,72 @@ references:
 
 # How to use this project
 usage: |-
-  Usage goes here
-  <!-- action-docs-inputs -->
-  
-  <!-- action-docs-outputs -->
-  
-  <!-- action-docs-runs -->
+  Use `github-action-preview-environment-controller` in Pull Request triggered pipeline, and use it's outputs to determinate
+  what environments should be deployed and what cleaned up.
 
-examples: |-
-  Examples goes here
+  ```yaml
+    name: Pull Request
+    on:
+      pull_request:
+        branches: [ 'main' ]
+        types: [opened, synchronize, reopened, closed, labeled, unlabeled]
+
+    jobs:
+      context:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Preview deployments controller
+            uses: cloudposse/github-action-preview-environment-controller@v0.7.0
+            id: controller
+            with:
+              labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+              open: ${{ github.event.pull_request.state == 'open' }}
+              env-label: |
+                preview: deploy
+                qa1: deploy/qa1
+                qa2: deploy/qa2
+  
+        outputs:
+          labels_env: ${{ steps.controller.outputs.labels_env }}
+          deploy_envs: ${{ steps.controller.outputs.deploy_envs }}
+          destroy_envs: ${{ steps.controller.outputs.destroy_envs }}
+  
+      deploy:
+        runs-on: ubuntu-latest
+        if: ${{ needs.context.outputs.deploy_envs != '[]'  }}
+        strategy:
+          matrix:
+            env: ${{ fromJson(needs.context.outputs.deploy_envs) }}
+        environment:
+          name: ${{ matrix.env }}
+        needs: [ context ]
+        steps:
+          - name: Deploy
+            uses: example/deploy@main
+            id: deploy
+            with:
+              environment: ${{ matrix.env }}
+              operation: deploy
+
+      destroy:
+        runs-on: ubuntu-latest
+        if: ${{ needs.context.outputs.destroy_envs != '[]'  }}
+        strategy:
+          matrix:
+            env: ${{ fromJson(needs.context.outputs.destroy_envs) }}
+        needs: [ context ]
+        steps:
+          - name: Destroy
+            uses: example/deploy@main
+            id: deploy
+            with:
+              environment: ${{ matrix.env }}
+              operation: destroy
+  ```
 
 include:
-  - "docs/targets.md"
   - "docs/github-action.md"
+  - "docs/targets.md"
 
 # Contributors to this project
 contributors:

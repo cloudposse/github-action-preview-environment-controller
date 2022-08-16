@@ -1,5 +1,5 @@
 name: 'Preview environment controller'
-description: 'Manage deploy/undeploy for preview environments depends of PR labels'
+description: 'Action to manage to deploy and purge preview environments depends on PR labels'
 author: hello@cloudposse.com
 branding:
   icon: 'layers'

@@ -30,7 +30,7 @@
 
 -->
 
-<!-- action-docs-description -->
+Action to manage to deploy and purge preview environments depends on PR labels
 
 ---
 
@@ -60,7 +60,12 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 ## Introduction
 
-
+Testing Pull Request changes usually lead to having it deployed on a preview environment.
+The environment can be ephemeral or pre-provisioned. In the last case, there is a countable number of preview environments.
+This GitHub Action follows a pattern when the developer set PR label to specify a preview environment to deploy.
+`github-action-preview-environment-controller` allow to define map of `environment => label`.
+Depending on current PR labels the action outputs a list of deploy and destroy environments.
+So it performs a `controller` role and does not limit deployment methods or tools.
 
 
 
@@ -70,34 +75,74 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
-Usage goes here
-<!-- action-docs-inputs -->
+Use `github-action-preview-environment-controller` in Pull Request triggered pipeline, and use it's outputs to determinate
+what environments should be deployed and what cleaned up.
 
-<!-- action-docs-outputs -->
+```yaml
+  name: Pull Request
+  on:
+    pull_request:
+      branches: [ 'main' ]
+      types: [opened, synchronize, reopened, closed, labeled, unlabeled]
 
-<!-- action-docs-runs -->
+  jobs:
+    context:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Preview deployments controller
+          uses: cloudposse/github-action-preview-environment-controller@v0.7.0
+          id: controller
+          with:
+            labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+            open: ${{ github.event.pull_request.state == 'open' }}
+            env-label: |
+              preview: deploy
+              qa1: deploy/qa1
+              qa2: deploy/qa2
 
+      outputs:
+        labels_env: ${{ steps.controller.outputs.labels_env }}
+        deploy_envs: ${{ steps.controller.outputs.deploy_envs }}
+        destroy_envs: ${{ steps.controller.outputs.destroy_envs }}
 
+    deploy:
+      runs-on: ubuntu-latest
+      if: ${{ needs.context.outputs.deploy_envs != '[]'  }}
+      strategy:
+        matrix:
+          env: ${{ fromJson(needs.context.outputs.deploy_envs) }}
+      environment:
+        name: ${{ matrix.env }}
+      needs: [ context ]
+      steps:
+        - name: Deploy
+          uses: example/deploy@main
+          id: deploy
+          with:
+            environment: ${{ matrix.env }}
+            operation: deploy
 
-
-## Examples
-
-Examples goes here
-
-
-
-<!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
+    destroy:
+      runs-on: ubuntu-latest
+      if: ${{ needs.context.outputs.destroy_envs != '[]'  }}
+      strategy:
+        matrix:
+          env: ${{ fromJson(needs.context.outputs.destroy_envs) }}
+      needs: [ context ]
+      steps:
+        - name: Destroy
+          uses: example/deploy@main
+          id: deploy
+          with:
+            environment: ${{ matrix.env }}
+            operation: destroy
 ```
-<!-- markdownlint-restore -->
+
+
+
+
+
+
 <!-- markdownlint-disable -->
 ## Inputs
 
@@ -114,6 +159,18 @@ Available targets:
 | deploy\_envs | Environments that need to be deployed |
 | destroy\_envs | Environments that need to be destroyed |
 | labels\_env | JSON formatted {label}: {environment} map |
+<!-- markdownlint-restore -->
+<!-- markdownlint-disable -->
+## Makefile Targets
+```text
+Available targets:
+
+  help                                Help screen
+  help/all                            Display help for all targets
+  help/short                          This help short screen
+  lint                                Lint terraform code
+
+```
 <!-- markdownlint-restore -->
 
 
