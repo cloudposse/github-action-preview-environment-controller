@@ -62,7 +62,7 @@ runs:
         version: 1.6
         force: 'true'
 
-    - name: Fix JQ permissions
+    - name: Fix JQ permissions https://github.com/dcarbone/install-jq-action/pull/1
       shell: bash
       run: chmod +x /opt/hostedtoolcache/jq/jq
 
