@@ -32,7 +32,7 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: '1.5'
+          expected: 'jq-1.5'
           actual: ${{ steps.base.outputs.version }}
 
       - uses: ./
@@ -54,7 +54,7 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: '1.6'
+          expected: 'jq-1.6'
           actual: ${{ steps.new.outputs.version }}
 
 
