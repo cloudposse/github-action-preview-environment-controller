@@ -64,7 +64,7 @@ runs:
 
     - name: Fix JQ permissions https://github.com/dcarbone/install-jq-action/pull/1
       shell: bash
-      run: chmod +x /opt/hostedtoolcache/jq/jq
+      run: chmod +x $RUNNER_TOOL_CACHE/jq/jq
 
     - uses: edwardgeorge/jq-action@main
       id: deploy_envs
