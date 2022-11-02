@@ -28,7 +28,7 @@ jobs:
       - name: Downgrade version
         id: base
         run: |
-          echo $GITHUB_PATH            
+          cat $GITHUB_PATH            
           which jq
           jq --version          
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
