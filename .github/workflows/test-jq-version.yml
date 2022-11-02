@@ -28,8 +28,7 @@ jobs:
       - name: Downgrade version
         id: base
         run: |
-          chmod +x /opt/hostedtoolcache/jq/jq 
-          /opt/hostedtoolcache/jq/jq --version          
+          chmod +x /opt/hostedtoolcache/jq/jq          
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
       - uses: nick-fields/assert-action@v1
