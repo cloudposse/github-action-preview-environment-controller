@@ -63,6 +63,7 @@ runs:
         force: 'true'
 
     - name: Fix JQ permissions
+      shell: bash
       run: chmod +x /opt/hostedtoolcache/jq/jq
 
     - uses: edwardgeorge/jq-action@main
