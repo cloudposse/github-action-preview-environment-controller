@@ -50,6 +50,7 @@ jobs:
       - name: Current version
         id: new
         run: |
+          jq --version
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
       - uses: nick-fields/assert-action@v1
