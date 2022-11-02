@@ -28,7 +28,9 @@ jobs:
       - name: Downgrade version
         id: base
         run: |
-          cat $GITHUB_PATH            
+          $TMP_GITHUB_PATH=$( cat $GITHUB_PATH )
+          echo "/opt/hostedtoolcache/jq" > $GITHUB_PATH
+          echo $TMP_GITHUB_PATH >> $GITHUB_PATH
           which jq
           jq --version          
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
