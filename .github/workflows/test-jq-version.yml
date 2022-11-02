@@ -1,4 +1,4 @@
-name: Test PR closed
+name: Test JQ version
 on:
   workflow_dispatch: {}
   ## Added pull_request to register workflow from the PR.
@@ -19,6 +19,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: 'Setup jq'
+        uses: dcarbone/install-jq-action@v1.0.0
+        with:
+          version: 1.5
+          force: 'true'
+
+      - name: Downgrade version
+        id: base
+        run: |
+          chmod +x /opt/hostedtoolcache/jq/jq          
+          echo "version=$(jq --version)" >> $GITHUB_OUTPUT
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: 'jq-1.5'
+          actual: ${{ steps.base.outputs.version }}
+
       - uses: ./
         id: current
         with:
@@ -28,17 +45,29 @@ jobs:
             qa2: deploy/qa2
             qa3: deploy/qa3
             qa4: deploy/qa4
-          labels: '[ "deploy", "deploy/qa2" ]'
-          open: false
+          labels: '["deploy","deploy/qa2"]'
+          open: 'true'
+
+      - name: Current version
+        id: new
+        run: |
+          jq --version
+          echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: '[]'
-          actual: ${{ steps.current.outputs.deploy_envs }}
+          expected: 'jq-1.6'
+          actual: ${{ steps.new.outputs.version }}
+
 
       - uses: nick-fields/assert-action@v1
         with:
           expected: '["preview","qa2"]'
+          actual: ${{ steps.current.outputs.deploy_envs }}
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: '["qa1","qa3","qa4"]'
           actual: ${{ steps.current.outputs.destroy_envs }}
 
   teardown:
