@@ -3,7 +3,7 @@ on:
   workflow_dispatch: {}
   ## Added pull_request to register workflow from the PR.
   ## Read more https://stackoverflow.com/questions/63362126/github-actions-how-to-run-a-workflow-created-on-a-non-master-branch-from-the-wo
-  pull_request: {}
+  #  pull_request: {}
 
 jobs:
   setup:
@@ -48,14 +48,14 @@ jobs:
           open: 'true'
 
       - name: Current version
-        id: current
+        id: new
         run: |
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
       - uses: nick-fields/assert-action@v1
         with:
           expected: '1.6'
-          actual: ${{ steps.current.outputs.version }}
+          actual: ${{ steps.new.outputs.version }}
 
 
       - uses: nick-fields/assert-action@v1
