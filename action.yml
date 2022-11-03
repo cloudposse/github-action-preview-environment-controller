@@ -57,7 +57,7 @@ runs:
         fi
 
     - name: 'Install jq 1.6'
-      uses: dcarbone/install-jq-action@v1.0.0
+      uses: dcarbone/install-jq-action@v1.0.1
       with:
         version: 1.6
         force: 'true'
