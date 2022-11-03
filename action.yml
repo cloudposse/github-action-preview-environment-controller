@@ -57,14 +57,10 @@ runs:
         fi
 
     - name: 'Install jq 1.6'
-      uses: dcarbone/install-jq-action@v1.0.0
+      uses: dcarbone/install-jq-action@v1.0.1
       with:
         version: 1.6
         force: 'true'
-
-    - name: Fix JQ permissions https://github.com/dcarbone/install-jq-action/pull/1
-      shell: bash
-      run: chmod +x $RUNNER_TOOL_CACHE/jq/jq
 
     - uses: edwardgeorge/jq-action@main
       id: deploy_envs
