@@ -144,6 +144,7 @@ what environments should be deployed and what cleaned up.
 
 
 <!-- markdownlint-disable -->
+
 ## Inputs
 
 | Name | Description | Default | Required |
@@ -151,6 +152,7 @@ what environments should be deployed and what cleaned up.
 | env-label | YAML formatted {environment}: {label} map  | preview: deploy<br> | true |
 | labels | Existing PR labels | [] | true |
 | open | Is PR open? | true | true |
+
 
 ## Outputs
 
@@ -256,7 +258,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyright
 
-Copyright © 2017-2022 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2023 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 
