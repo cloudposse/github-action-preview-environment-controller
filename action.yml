@@ -49,11 +49,11 @@ runs:
       run: |
         if [ "${{ inputs.open }}" == "true" ]
         then
-          echo "::set-output name=deploy::with_entries(select(.value | IN({0}[]))) | keys"
-          echo "::set-output name=destroy::with_entries(select(.value | IN({0}[]) | not )) | keys"
+          echo "deploy=with_entries(select(.value | IN({0}[]))) | keys" >> $GITHUB_OUTPUT
+          echo "destroy=with_entries(select(.value | IN({0}[]) | not )) | keys" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=deploy::[]"
-          echo "::set-output name=destroy::with_entries(select(.value | IN({0}[]))) | keys"
+          echo "deploy=[]" >> $GITHUB_OUTPUT
+          echo "destroy=with_entries(select(.value | IN({0}[]))) | keys" >> $GITHUB_OUTPUT
         fi
 
     - name: 'Install jq 1.6'
