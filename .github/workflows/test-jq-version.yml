@@ -31,7 +31,7 @@ jobs:
           chmod +x /opt/hostedtoolcache/jq/jq          
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: 'jq-1.5'
           actual: ${{ steps.base.outputs.version }}
@@ -54,18 +54,18 @@ jobs:
           jq --version
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: 'jq-1.6'
           actual: ${{ steps.new.outputs.version }}
 
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: '["preview","qa2"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: '["qa1","qa3","qa4"]'
           actual: ${{ steps.current.outputs.destroy_envs }}
