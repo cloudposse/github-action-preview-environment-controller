@@ -21,7 +21,7 @@ inputs:
 outputs:
   labels_env:
     description: "JSON formatted {label}: {environment} map"
-    value: ${{ steps.yaml2json.outputs.data }}
+    value: ${{ steps.yaml2json.outputs.output }}
   deploy_envs:
     description: "Environments that need to be deployed"
     value: ${{ steps.deploy_envs.outputs.output }}
@@ -37,10 +37,10 @@ runs:
         file: 'labels_env.yaml'
         content: ${{ inputs.env-label }}
 
-    - uses: fabasoad/yaml-json-xml-converter-action@main
+    - uses: fabasoad/data-format-converter-action@v0.2.1
       id: yaml2json
       with:
-        path: 'labels_env.yaml'
+        input: 'labels_env.yaml'
         from: 'yaml'
         to: 'json'
 
@@ -62,18 +62,18 @@ runs:
         version: 1.6
         force: 'true'
 
-    - uses: edwardgeorge/jq-action@main
+    - uses: cloudposse/github-action-jq@0.4.0
       id: deploy_envs
       with:
         compact: true
-        input: ${{ steps.yaml2json.outputs.data }}
+        input: ${{ steps.yaml2json.outputs.output }}
         script: ${{ format(steps.pattern.outputs.deploy, inputs.labels) }}
 
-    - uses: edwardgeorge/jq-action@main
+    - uses: cloudposse/github-action-jq@0.4.0
       id: destroy_envs
       with:
         compact: true
-        input: ${{ steps.yaml2json.outputs.data }}
+        input: ${{ steps.yaml2json.outputs.output }}
         script: ${{ format(steps.pattern.outputs.destroy, inputs.labels) }}
 
 
