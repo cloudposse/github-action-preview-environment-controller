@@ -37,7 +37,7 @@ runs:
         file: 'labels_env.yaml'
         content: ${{ inputs.env-label }}
 
-    - uses: fabasoad/data-format-converter-action@v0.2.1
+    - uses: fabasoad/data-format-converter-action@03bb3f2c090f7f45ebc5d80e917b93774b6a99c3 # > v0.2.1
       id: yaml2json
       with:
         input: 'labels_env.yaml'
