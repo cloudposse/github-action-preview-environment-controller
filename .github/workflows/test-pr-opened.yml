@@ -31,12 +31,12 @@ jobs:
           labels: '["deploy","deploy/qa2"]'
           open: 'true'
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: '["preview","qa2"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
-      - uses: nick-fields/assert-action@v1
+      - uses: nick-fields/assert-action@v2
         with:
           expected: '["qa1","qa3","qa4"]'
           actual: ${{ steps.current.outputs.destroy_envs }}
