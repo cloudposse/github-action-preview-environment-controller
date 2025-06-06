@@ -2,8 +2,11 @@
 
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/github-action-preview-environment-controller/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
-    <p align="right">
-<a href="https://github.com/cloudposse/github-action-preview-environment-controller/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/github-action-preview-environment-controller.svg" alt="Latest Release"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/badge.svg" alt="Slack Community"/></a></p>
+
+
+<p align="right"><a href="https://github.com/cloudposse/github-action-preview-environment-controller/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/github-action-preview-environment-controller.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/github-action-preview-environment-controller/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/github-action-preview-environment-controller.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a>
+
+</p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -114,25 +117,10 @@ what environments should be deployed and what cleaned up.
 
 
 
-<!-- markdownlint-disable -->
-
-## Inputs
-
-| Name | Description | Default | Required |
-|------|-------------|---------|----------|
-| env-label | YAML formatted {environment}: {label} map  | preview: deploy<br> | true |
-| labels | Existing PR labels | [] | true |
-| open | Is PR open? | true | true |
 
 
-## Outputs
 
-| Name | Description |
-|------|-------------|
-| deploy\_envs | Environments that need to be deployed |
-| destroy\_envs | Environments that need to be destroyed |
-| labels\_env | JSON formatted {label}: {environment} map |
-<!-- markdownlint-restore -->
+
 
 
 ## Related Projects
@@ -225,7 +213,7 @@ All other trademarks referenced herein are the property of their respective owne
 
 
 ---
-Copyright © 2017-2024 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2025 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 <a href="https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-preview-environment-controller&utm_content=readme_footer_link"><img alt="README footer" src="https://cloudposse.com/readme/footer/img"/></a>
