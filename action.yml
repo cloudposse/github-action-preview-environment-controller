@@ -62,14 +62,14 @@ runs:
         version: 1.6
         force: 'true'
 
-    - uses: cloudposse/github-action-jq@0.4.0
+    - uses: cloudposse/github-action-jq@v0.4.1
       id: deploy_envs
       with:
         compact: true
         input: ${{ steps.yaml2json.outputs.output }}
         script: ${{ format(steps.pattern.outputs.deploy, inputs.labels) }}
 
-    - uses: cloudposse/github-action-jq@0.4.0
+    - uses: cloudposse/github-action-jq@v0.4.1
       id: destroy_envs
       with:
         compact: true
