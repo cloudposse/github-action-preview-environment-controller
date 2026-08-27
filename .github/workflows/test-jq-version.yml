@@ -25,7 +25,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 'Setup jq'
         uses: dcarbone/install-jq-action@v2.1.0
@@ -39,7 +39,7 @@ jobs:
           chmod +x /opt/hostedtoolcache/jq/jq          
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: 'jq-1.5'
           actual: ${{ steps.base.outputs.version }}
@@ -62,18 +62,18 @@ jobs:
           jq --version
           echo "version=$(jq --version)" >> $GITHUB_OUTPUT
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: 'jq-1.6'
           actual: ${{ steps.new.outputs.version }}
 
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: '["preview","qa2"]'
           actual: ${{ steps.current.outputs.deploy_envs }}
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: '["qa1","qa3","qa4"]'
           actual: ${{ steps.current.outputs.destroy_envs }}
